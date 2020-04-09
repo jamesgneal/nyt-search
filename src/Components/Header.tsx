@@ -1,7 +1,6 @@
 import React from "react";
-import "materialize-css";
-
 import { Navbar, Icon } from "react-materialize";
+import "materialize-css";
 
 export const Header = () => {
   return (
