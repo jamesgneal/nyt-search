@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { searchNYT } from "./utils/api";
 import { Articles, NYTArticleData } from "./Components/Articles";
 import { Form } from "./Components/Form";
-import "./App.css";
+import { Header } from "./Components/Header";
 
 function App() {
   const [keywordsToSearch, setKeywordsToSearch] = useState("");
@@ -41,17 +41,16 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <h1>New York Times Article Searcher</h1>
-        <Form
-          handleSubmit={handleSubmit}
-          inputValue={keywordsToSearch}
-          isSearching={isSearching}
-          selectValue={sectionToSearch}
-          setKeywords={setKeywordsToSearch}
-          setSection={setSectionToSearch}
-        />
-      </header>
+      <Header />
+      <Form
+        handleSubmit={handleSubmit}
+        inputValue={keywordsToSearch}
+        isSearching={isSearching}
+        selectValue={sectionToSearch}
+        setKeywords={setKeywordsToSearch}
+        setSection={setSectionToSearch}
+      />
+
       <h2>{ResultsTitle()}</h2>
       <Articles content={searchResults} />
     </div>
