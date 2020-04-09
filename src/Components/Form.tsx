@@ -1,11 +1,13 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent } from "react";
+import { TextInput, Dropdown, Button } from "react-materialize";
 import { sections } from "../utils/api";
+import "materialize-css";
 
 interface FormProps {
   handleSubmit: () => void;
   inputValue: string;
   isSearching: boolean;
-  selectValue: string;
+  sectionValue: string;
   setKeywords: (keywords: string) => void;
   setSection: (section: string) => void;
 }
@@ -14,56 +16,62 @@ export const Form = ({
   handleSubmit,
   inputValue,
   isSearching,
-  selectValue,
+  sectionValue,
   setKeywords,
   setSection,
 }: FormProps) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
     const { value } = event.target;
     setKeywords(value);
   };
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    event.preventDefault();
-    const { value } = event.target;
-    setSection(value);
+  const handleSectionClick = (section: string) => {
+    setSection(section);
   };
-  const handleEventAndSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleSubmit();
-  };
+
   return (
-    <form onSubmit={handleEventAndSubmit} name="search">
-      <label>
-        Keywords:
-        <input
-          name="keywords"
-          onChange={handleInputChange}
-          placeholder="Article Subject"
-          value={inputValue}
-        />
-      </label>
-      <br />
-      <label>
-        Section:
-        <select
-          name="section"
-          onChange={handleSelectChange}
-          value={selectValue}
+    <form name="search" style={{ padding: "10px" }}>
+      <TextInput
+        id="TextInput-4"
+        label="ENTER KEYWORDS, PICK A SECTION, AND HIT SEARCH"
+        onChange={handleInputChange}
+        value={inputValue}
+      />
+      <div style={{ display: "inline-block", marginRight: "10px" }}>
+        <Dropdown
+          id="Dropdown_6"
+          options={{
+            alignment: "left",
+            autoTrigger: true,
+            closeOnClick: true,
+            constrainWidth: true,
+            container: null,
+
+            coverTrigger: true,
+            hover: false,
+            inDuration: 150,
+            outDuration: 250,
+          }}
+          trigger={<Button node="button">{`Section (${sectionValue})`}</Button>}
         >
           {sections.map((section) => (
-            <option value={section} key={section}>
+            <Button
+              flat
+              node="button"
+              waves="light"
+              key={section}
+              onClick={() => handleSectionClick(section)}
+            >
               {section.toUpperCase()}
-            </option>
+            </Button>
           ))}
-        </select>
-      </label>
-      <br />
-      <input
-        type={"submit"}
-        value={"Search"}
+        </Dropdown>
+      </div>
+      <Button
         disabled={inputValue.length === 0 || isSearching}
-      />
+        onClick={handleSubmit}
+      >
+        Search
+      </Button>
     </form>
   );
 };

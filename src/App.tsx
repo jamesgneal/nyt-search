@@ -46,7 +46,7 @@ function App() {
         handleSubmit={handleSubmit}
         inputValue={keywordsToSearch}
         isSearching={isSearching}
-        selectValue={sectionToSearch}
+        sectionValue={sectionToSearch}
         setKeywords={setKeywordsToSearch}
         setSection={setSectionToSearch}
       />
