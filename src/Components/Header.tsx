@@ -11,8 +11,9 @@ export const Header = () => {
           className="brand-logo"
           href="https://www.linkedin.com/in/gneal/"
           target="_blank"
+          rel="noopener noreferrer"
         >
-          New York Times Searcher
+          New York Times Article Search
         </a>
       }
       centerLogo
