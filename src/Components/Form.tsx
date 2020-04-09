@@ -54,15 +54,9 @@ export const Form = ({
           trigger={<Button node="button">{`Section (${sectionValue})`}</Button>}
         >
           {sections.map((section) => (
-            <Button
-              flat
-              node="button"
-              waves="light"
-              key={section}
-              onClick={() => handleSectionClick(section)}
-            >
+            <a key={section} onClick={() => handleSectionClick(section)}>
               {section.toUpperCase()}
-            </Button>
+            </a>
           ))}
         </Dropdown>
       </div>

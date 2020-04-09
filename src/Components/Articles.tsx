@@ -1,9 +1,11 @@
 import React from "react";
+import { Row, Col, Card, Icon, CardTitle } from "react-materialize";
 
 export interface NYTArticleData {
   abstract: string;
   date: string;
   id: string;
+  imageUrl: string;
   url: string;
   title: string;
 }
@@ -14,20 +16,37 @@ interface ArticleContent {
 
 export const Articles = ({ content }: ArticleContent) => {
   return (
-    <div>
-      <ul>
-        {content &&
-          content.map((article) => (
-            <li key={article.id} style={{ listStyleType: "none" }}>
-              <h3>{article.title}</h3>
-              <h5>{article.date}</h5>
-              <p>{article.abstract}</p>
-              <a href={article.url} target={"_blank"} rel="noopener noreferrer">
-                <i>Go to article</i>
-              </a>
-            </li>
-          ))}
-      </ul>
-    </div>
+    <Row>
+      {content &&
+        content.map((article) => (
+          <Col l={3} m={6} s={12}>
+            <Card
+              actions={[
+                <a
+                  href={article.url}
+                  key={`a-${article.id}`}
+                  target={"_blank"}
+                  rel="noopener noreferrer"
+                >
+                  OPEN ARTICLE IN NEW PAGE
+                </a>,
+              ]}
+              closeIcon={<Icon>close</Icon>}
+              header={
+                <CardTitle
+                  image={article.imageUrl}
+                  key={`cardtitle-${article.id}`}
+                >
+                  {article.title}
+                </CardTitle>
+              }
+              key={`card-${article.id}`}
+            >
+              {article.abstract}
+              <h6 key={`h6-${article.id}`}>Published {article.date}</h6>
+            </Card>
+          </Col>
+        ))}
+    </Row>
   );
 };

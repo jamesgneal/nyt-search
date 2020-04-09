@@ -42,6 +42,10 @@ interface RawArticleData {
     main: string;
     [propName: string]: any;
   };
+  multimedia: {
+    url: string;
+    [propName: string]: any;
+  }[];
   pub_date: string;
   web_url: string;
   [propName: string]: any;
@@ -61,17 +65,21 @@ export const searchNYT = async (
       filterQueryClose +
       apiKey;
     let response = await Axios.get(searchQuery);
+    console.log(response);
     let articleData: RawArticleData[] = await response.data.response.docs;
     let resultsCount = await response.data.response.meta.hits;
     let cleanArticleData: NYTArticleData[] = articleData.map((doc) => ({
       abstract: doc.abstract,
       date: formatWithMoment(doc.pub_date).toString(),
+      id: doc._id,
+      imageUrl: doc.multimedia.length
+        ? "https://static01.nyt.com/" + doc.multimedia[0].url
+        : "https://bauhaus100aspen.org/wp-content/uploads/2019/06/defaultPromoCrop.png",
       url: doc.web_url,
       title: doc.headline.main,
-      id: doc._id,
     }));
     return { data: cleanArticleData, hits: resultsCount };
   } catch (error) {
-    console.log(`Error returned during NYT API call - ${error}`);
+    alert(`Error returned during NYT API call - ${error}`);
   }
 };

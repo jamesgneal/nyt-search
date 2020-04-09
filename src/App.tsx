@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { Row } from "react-materialize";
 import { searchNYT } from "./utils/api";
-import { Articles, NYTArticleData } from "./Components/Articles";
 import { Form } from "./Components/Form";
 import { Header } from "./Components/Header";
+import { Articles, NYTArticleData } from "./Components/Articles";
 
 function App() {
   const [keywordsToSearch, setKeywordsToSearch] = useState("");
@@ -51,7 +52,9 @@ function App() {
         setSection={setSectionToSearch}
       />
 
-      <h2>{ResultsTitle()}</h2>
+      <Row>
+        <h4>{ResultsTitle()}</h4>
+      </Row>
       <Articles content={searchResults} />
     </div>
   );
